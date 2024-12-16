@@ -56,4 +56,4 @@ document.getElementById('compressButton').addEventListener('click', function() {
     const downloadLink = document.getElementById('downloadLink');
     downloadLink.href = URL.createObjectURL(blob);
     downloadLink.download = 'compressed_image.jpg'; // 设置下载文件名
-}); 
+});
