@@ -45,8 +45,15 @@ document.getElementById('compressButton').addEventListener('click', function() {
     const compressedSize = Math.round((compressedDataUrl.length * 3) / 4); // 计算压缩后的字节数
     document.getElementById('compressedSize').innerText = `文件大小: ${compressedSize} 字节`;
 
-    // 设置下载链接
+    // 使用 Blob 对象创建下载链接
+    const byteString = atob(compressedDataUrl.split(',')[1]);
+    const mimeString = compressedDataUrl.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++) {
+        ab[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: mimeString });
     const downloadLink = document.getElementById('downloadLink');
-    downloadLink.href = compressedDataUrl;
+    downloadLink.href = URL.createObjectURL(blob);
     downloadLink.download = 'compressed_image.jpg'; // 设置下载文件名
 }); 
